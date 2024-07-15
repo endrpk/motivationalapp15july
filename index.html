@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motivational Message App</title>
+    <style>
+        * { font-size: 40px; }
+
+                body {
+            background-image: url('background2.JPG');
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
+            height: 100vh; 
+            width: 100vw; 
+           
+        }
+
+	h2{margin: 60px 0;border:solid;border-radius:40px;color:black;}
+
+	h1{margin: 40px 0;color:#FFD700;}
+
+	input[type="submit"]{border-radius:40px;background-color:green;color:white;}
+
+    </style>
+</head>
+<body>
+    <center>
+        <h1>Motivational Message App</h1>
+        <form onsubmit="gm(event)">
+            <input type="submit" value="Get Message"/>
+        </form>
+        <h2 id="msg"></h2>
+        <h2 id="aut"></h2>
+    </center>
+    <script>
+        function gm(event) {
+            event.preventDefault();
+            let msg = document.getElementById("msg");
+            let aut = document.getElementById("aut");
+            
+            let url = "https://quotes-api-self.vercel.app/quote";
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    msg.innerHTML = data.quote ? data.quote : "No quote available.";
+                    aut.innerHTML = data.author ? data.author : "Unknown author.";        
+                })
+                .catch(error => msg.innerHTML = "Issue: " + error);
+        }
+    </script>
+</body>
+</html>
